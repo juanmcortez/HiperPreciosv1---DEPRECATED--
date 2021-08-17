@@ -11,7 +11,20 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.js('resources/js/hiperprecios.js', 'public/js')
+    .extract(['alpinejs', 'apexcharts', 'lodash', 'axios', 'jQuery'])
+    .postCss('resources/css/hiperprecios.css', 'public/css')
+    .sass('resources/sass/theme.scss', 'public/css')
+    .sass('resources/sass/theme_print.scss', 'public/css')
+    .options({
+        fileLoaderDirs: {
+            images: 'images',
+            fonts: 'fonts'
+        },
+        postCss: [
+            require('postcss-import'),
+            require('tailwindcss'),
+            require('autoprefixer'),
+        ]
+    })
+    .version();
