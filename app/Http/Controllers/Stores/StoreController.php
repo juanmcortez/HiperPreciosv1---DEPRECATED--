@@ -15,7 +15,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = Store::all();
+        $stores = Store::query()->orderBy('total_products')->orderBy('name')->get();
         return view('pages.stores.index', compact('stores'));
     }
 
