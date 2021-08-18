@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Stores\StoreController;
+use App\Http\Controllers\Updates\ProductListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,8 @@ Route::prefix('stores')->name('store')->group(function () {
     Route::get('/{store}/edit', [StoreController::class, 'edit'])->name('.edit');
     Route::post('/{store}/edit', [StoreController::class, 'update'])->name('.update');
     Route::delete('/{store}/remove', [StoreController::class, 'destroy'])->name('.remove');
+});
+
+Route::prefix('products')->name('products')->group(function () {
+    Route::post('/updates/{store}', [ProductListController::class, 'update'])->name('.update');
 });
