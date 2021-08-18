@@ -26,18 +26,25 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.stores.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\StoreRequest  $request
+     * @param  \App\Http\Requests\Stores\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
     {
-        //
+        $store = new Store();
+        $store->name            = $request->input('name');
+        $store->store_url       = $request->input('store_url');
+        $store->is_vtex_store   = (empty($request->input('is_vtex_store'))) ? false : true;
+        $store->save();
+
+        return redirect(route('store'))
+                ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been created.');
     }
 
     /**
@@ -54,14 +61,16 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\StoreRequest  $request
+     * @param  \App\Http\Requests\Stores\StoreRequest  $request
      * @param  \App\Models\Stores\Store  $store
      * @return \Illuminate\Http\Response
      */
     public function update(StoreRequest $request, Store $store)
     {
-        // dd($request);
-        // dd($store);
+        $store->name            = $request->input('name');
+        $store->store_url       = $request->input('store_url');
+        $store->is_vtex_store   = ($request->input('is_vtex_store') == 'on') ? true : false;
+        $store->update();
 
         return redirect(route('store'))
                 ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been updated.');

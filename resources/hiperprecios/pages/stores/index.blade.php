@@ -33,7 +33,12 @@
                     <td class="py-4">{{ __('Total Products') }}</td>
                     <td class="py-4">{{ __('Last Products Update') }}</td>
                     <td class="py-4">{{ __('Added on') }}</td>
-                    <td></td>
+                    <td>
+                        <a href="{{ route('store.create') }}"
+                            class="px-2 py-1 text-sm text-center text-white transition duration-150 ease-in-out transform bg-green-600 border-green-600 rounded-md cursor-pointer focus:shadow-outline focus:outline-none focus:ring-0 ring-offset-current ring-offset-0 hover:bg-green-800">
+                            <i class="fas fa-plus"></i> {{ __('New Store') }}
+                        </a>
+                    </td>
                 </tr>
             </thead>
             <tbody>
