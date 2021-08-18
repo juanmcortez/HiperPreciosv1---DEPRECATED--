@@ -56,7 +56,8 @@ class Store extends Model
      * @var array
      */
     protected $casts = [
-        'last_products_update' => 'datetime:Y-m-d H:i',
+        'last_products_update' => 'datetime:M d, Y H:i',
+        'created_at' => 'datetime:M d, Y H:i',
     ];
 
 
