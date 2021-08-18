@@ -2,6 +2,7 @@
 
 namespace App\Models\Stores;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -56,9 +57,58 @@ class Store extends Model
      * @var array
      */
     protected $casts = [
-        'last_products_update' => 'datetime:M d, Y H:i',
-        'created_at' => 'datetime:M d, Y H:i',
+        'last_products_update' => 'datetime',
+        'created_at' => 'datetime',
+        'is_vtex_store' => 'boolean',
     ];
+
+
+    /**
+     * Accessor for last_products_update
+     *
+     * @param date $value
+     * @return Date
+     */
+    public function getLastProductsUpdateAttribute($value)
+    {
+        return Carbon::parse($value)->format('M d, Y - H:i');
+    }
+
+
+    /**
+     * Accessor for created_at
+     *
+     * @param date $value
+     * @return Date
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('M d, Y - H:i');
+    }
+
+
+    /**
+     * Accessor for total_products
+     *
+     * @param integer $value
+     * @return string
+     */
+    public function getTotalProductsAttribute($value)
+    {
+        return (empty($value)) ? ' --- ' : $value;
+    }
+
+
+    /**
+     * Accessor for total_categories
+     *
+     * @param integer $value
+     * @return string
+     */
+    public function getTotalCategoriesAttribute($value)
+    {
+        return (empty($value)) ? ' --- ' : $value;
+    }
 
 
 }

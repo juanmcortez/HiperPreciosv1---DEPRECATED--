@@ -28,7 +28,7 @@
 
 <body class="overflow-x-hidden text-xs antialiased lg:text-sm xl:text-base text-dark-700">
 
-    <main class="flex flex-col items-center justify-center w-full min-h-screen md:flex-row flex-nowrap">
+    <main class="flex flex-col w-full min-h-screen md:flex-row flex-nowrap">
         {{ $slot }}
     </main>
 

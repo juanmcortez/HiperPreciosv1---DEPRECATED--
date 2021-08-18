@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Stores;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Stores\StoreRequest;
 use App\Models\Stores\Store;
-use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -32,21 +32,10 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Stores\Store  $store
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Store $store)
+    public function store(StoreRequest $request)
     {
         //
     }
@@ -59,19 +48,23 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        //
+        return view('pages.stores.show', compact('store'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreRequest  $request
      * @param  \App\Models\Stores\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
-        //
+        // dd($request);
+        // dd($store);
+
+        return redirect(route('store'))
+                ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been updated.');
     }
 
     /**
@@ -82,6 +75,8 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
-        //
+        $store->delete();
+        return redirect(route('store'))
+                ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been deleted.');
     }
 }
