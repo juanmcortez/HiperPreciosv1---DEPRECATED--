@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\Stores\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('stores', [StoreController::class, 'index']);
+
+// Route::get('products/import', [ImportController::class, 'index']);
