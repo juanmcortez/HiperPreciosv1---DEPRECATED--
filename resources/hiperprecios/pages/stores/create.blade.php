@@ -1,7 +1,7 @@
 <x-hiper-precios-layout>
     <div class="w-full p-6 md:px-12 text-cemter">
         <h1 class="w-full text-xl font-bold leading-relaxed">
-            {{ __('Edit :store', ['store' => $store->name]) }}
+            {{ __('New Store') }}
         </h1>
 
         @if ($errors->any())
@@ -25,9 +25,8 @@
         </div>
         @endif
 
-        <form id="storeEdit" method="POST" action="{{ route('store.update', ['store' => $store->id]) }}">
+        <form id="storeCreate" method="POST" action="{{ route('store.create') }}">
             @csrf
-            @method('POST')
             <table class="table w-full mt-10">
                 <thead>
                     <tr class="text-center">
@@ -41,18 +40,18 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" name="name" value="{{ $store->name }}"
+                            <input type="text" name="name" value="{{ old('name') }}"
                                 class="w-full px-4 py-2 mt-2 text-base text-black transition duration-150 ease-in-out transform bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-0 ring-offset-current ring-offset-0" />
                         </td>
                         <td>&nbsp;</td>
                         <td>
-                            <input type="text" name="store_url" value="{{ $store->store_url }}"
+                            <input type="text" name="store_url" value="{{ old('store_url') }}"
                                 class="w-full px-4 py-2 mt-2 text-base text-black transition duration-150 ease-in-out transform bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-0 ring-offset-current ring-offset-0" />
                         </td>
                         <td>&nbsp;</td>
                         <td class="text-center">
-                            <input type="checkbox" name="is_vtex_store" class="form-checkbox"
-                                {{ ($store->is_vtex_store === false) ? '' : 'checked' }} />
+                            <input type="checkbox" name="is_vtex_store" checked="{{ old('is_vtex_store') }}"
+                                class="form-checkbox" />
                         </td>
                     </tr>
                     <tr>
@@ -61,7 +60,7 @@
                     <tr>
                         <td colspan="4">&nbsp;</td>
                         <td class="text-center">
-                            <a onclick="document.getElementById('storeEdit').submit();"
+                            <a onclick="document.getElementById('storeCreate').submit();"
                                 class="w-1/2 px-4 py-2 my-2 mr-2 text-base text-white transition duration-150 ease-in-out transform bg-green-600 border-green-600 rounded-md cursor-pointer focus:shadow-outline focus:outline-none focus:ring-0 ring-offset-current ring-offset-0 hover:bg-green-800">
                                 <i class="fa fa-check"></i> {{ __('Save') }}
                             </a>

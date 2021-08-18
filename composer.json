@@ -1,9 +1,19 @@
 {
-    "name": "laravel/laravel",
+    "name": "juanmcortez/hiperpreciosv1",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "description": "Hiper Precios v1.0",
+    "keywords": [
+        "Hiper",
+        "Precios",
+        "Super"
+    ],
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Juan M. Cortéz",
+            "email": "juanm.cortez@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
@@ -39,7 +49,11 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi",
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models --nowrite"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

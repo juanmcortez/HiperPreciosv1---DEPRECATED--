@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Stores\StoreController;
+use App\Http\Controllers\Updates\ProductListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('stores', [StoreController::class, 'index'])->name('store');
-Route::get('stores/{store}/edit', [StoreController::class, 'edit'])->name('store.edit');
-Route::post('stores/{store}/edit', [StoreController::class, 'update'])->name('store.update');
-Route::delete('stores/{store}/remove', [StoreController::class, 'destroy'])->name('store.remove');
+Route::prefix('stores')->name('store')->group(function () {
+    Route::get('', [StoreController::class, 'index']);
+    Route::get('/new', [StoreController::class, 'create'])->name('.create');
+    Route::post('/new', [StoreController::class, 'store'])->name('.store');
+    Route::get('/{store}/edit', [StoreController::class, 'edit'])->name('.edit');
+    Route::post('/{store}/edit', [StoreController::class, 'update'])->name('.update');
+    Route::delete('/{store}/remove', [StoreController::class, 'destroy'])->name('.remove');
+});
 
-// Route::get('products/import', [ImportController::class, 'index']);
+Route::prefix('products')->name('products')->group(function () {
+    Route::post('/updates/{store}', [ProductListController::class, 'update'])->name('.update');
+});
