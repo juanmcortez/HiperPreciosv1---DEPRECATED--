@@ -7,12 +7,13 @@
 
         @if (session('status'))
         <div class="items-center w-full mt-6">
-            <div class="w-full text-green-600 border-2 border-green-200 rounded-lg">
+            <div
+                class="w-full text-{{ session('status')['color'] }}-600 border-2 border-{{ session('status')['color'] }}-200 rounded-lg">
                 <div class="flex items-center justify-between px-4 py-2 mx-auto">
                     <div class="flex">
-                        <i class="mr-4 text-sm fas fa-check"></i>
+                        <i class="mr-4 text-sm fas fa-{{ session('status')['icon'] }}"></i>
                         <p class="text-sm font-semibold tracking-wide uppercase ">
-                            {!! session('status') !!}
+                            {!! session('status')['text'] !!}
                         </p>
                     </div>
                     <button
@@ -33,7 +34,7 @@
                     <td class="py-4">{{ __('Total Products') }}</td>
                     <td class="py-4">{{ __('Last Products Update') }}</td>
                     <td class="py-4">{{ __('Added on') }}</td>
-                    <td>
+                    <td colspan="2">
                         <a href="{{ route('store.create') }}"
                             class="px-2 py-1 text-sm text-center text-white transition duration-150 ease-in-out transform bg-green-600 border-green-600 rounded-md cursor-pointer focus:shadow-outline focus:outline-none focus:ring-0 ring-offset-current ring-offset-0 hover:bg-green-800">
                             <i class="fas fa-plus"></i> {{ __('New Store') }}
@@ -61,6 +62,16 @@
                             <a onclick="document.getElementById('storeRemove{{ $idx }}').submit();"
                                 class="w-1/3 px-2 py-1 text-sm text-center text-white transition duration-150 ease-in-out transform bg-red-600 border-red-600 rounded-md cursor-pointer focus:shadow-outline focus:outline-none focus:ring-0 ring-offset-current ring-offset-0 hover:bg-red-800">
                                 <i class="fas fa-trash"></i>
+                            </a>
+                        </form>
+                    </td>
+                    <td>
+                        <form id="storeUpdate{{ $idx }}" class="flex flex-row items-center justify-around w-full"
+                            method="POST" action="{{ route('products.update', ['store' => $store->id]) }}">
+                            @csrf
+                            <a onclick="document.getElementById('storeUpdate{{ $idx }}').submit();"
+                                class="w-1/2 px-2 py-1 text-sm text-center text-white transition duration-150 ease-in-out transform bg-yellow-600 border-yellow-600 rounded-md cursor-pointer focus:shadow-outline focus:outline-none focus:ring-0 ring-offset-current ring-offset-0 hover:bg-yellow-800">
+                                <i class="fas fa-sync-alt"></i>
                             </a>
                         </form>
                     </td>

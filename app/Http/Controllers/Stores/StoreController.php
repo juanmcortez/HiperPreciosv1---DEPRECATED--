@@ -43,8 +43,10 @@ class StoreController extends Controller
         $store->is_vtex_store   = (empty($request->input('is_vtex_store'))) ? false : true;
         $store->save();
 
-        return redirect(route('store'))
-                ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been created.');
+        $message['color']   = 'green';
+        $message['icon']    = 'check';
+        $message['text']    = '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been created.';
+        return redirect(route('store'))->with('status', $message);
     }
 
     /**
@@ -72,8 +74,10 @@ class StoreController extends Controller
         $store->is_vtex_store   = ($request->input('is_vtex_store') == 'on') ? true : false;
         $store->update();
 
-        return redirect(route('store'))
-                ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been updated.');
+        $message['color']   = 'green';
+        $message['icon']    = 'check';
+        $message['text']    = '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been updated.';
+        return redirect(route('store'))->with('status', $message);
     }
 
     /**
@@ -85,7 +89,10 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         $store->delete();
-        return redirect(route('store'))
-                ->with('status', '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been deleted.');
+
+        $message['color']   = 'green';
+        $message['icon']    = 'check';
+        $message['text']    = '<strong>Success!</strong> <em>' . ucfirst(strtolower($store->name)) . '</em> store, has been deleted.';
+        return redirect(route('store'))->with('status', $message);
     }
 }
