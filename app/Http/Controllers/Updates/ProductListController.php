@@ -78,10 +78,14 @@ class ProductListController extends Controller
             $prodList       = new ProductList();
             $apiResponse    = $prodList->updateProductsFrom($store);
             // Update the selected store values
-            $store->total_products = $apiResponse['totalprods'];
-            $store->total_categories = count($apiResponse['categories']);
-            $store->last_products_update = Carbon::now();
-            $updateResults = $store->update();
+            if ($apiResponse) {
+                $store->total_products = $apiResponse['total_prods'];
+                $store->total_categories = count($apiResponse['categories']);
+                $store->last_products_update = Carbon::now();
+                $updateResults = $store->update();
+            } else {
+                $updateResults  = false;
+            }
         } else {
             $updateResults  = false;
         }
