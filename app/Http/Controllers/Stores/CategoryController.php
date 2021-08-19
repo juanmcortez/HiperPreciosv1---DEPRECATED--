@@ -15,7 +15,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('slug')->get();
-        return view('pages.categories.index', compact('categories'));
+        $categList = Category::orderBy('slug')->get();
+        $categories = array();
+        $totals = 0;
+        foreach ($categList as $idx => $category) {
+            foreach ($category->productsQuantity->groupBy('store') as $jdx => $quantity) {
+                $categories[$idx][$jdx]['category'] = $category->name;
+                $categories[$idx][$jdx]['product_totals'] = $quantity->first()->product_totals;
+                $categories[$idx][$jdx]['store'] = $quantity->first()->storeOwner->name;
+                $categories[$idx][$jdx]['updated_at'] = $quantity->first()->updated_at;
+                $totals += $quantity->first()->product_totals;
+            }
+        }
+        return view('pages.categories.index', compact('categories', 'totals'));
     }
 }

@@ -45,6 +45,6 @@ class Category extends Model
      */
     public function productsQuantity()
     {
-        return $this->hasMany(CategoryUpdates::class, 'category', 'id')->orderBy('updated_at');
+        return $this->hasMany(CategoryUpdates::class, 'category', 'id')->orderBy('updated_at', 'desc');
     }
 }

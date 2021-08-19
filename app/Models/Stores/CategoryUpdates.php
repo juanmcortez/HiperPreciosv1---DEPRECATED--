@@ -3,6 +3,7 @@
 namespace App\Models\Stores;
 
 use App\Models\Stores\Category;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -54,6 +55,18 @@ class CategoryUpdates extends Model
     protected $casts = [
         'updated_at' => 'datetime',
     ];
+
+
+    /**
+     * Accessor for updated_at
+     *
+     * @param date $value
+     * @return Date
+     */
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('M d, Y - H:i');
+    }
 
 
     /**
