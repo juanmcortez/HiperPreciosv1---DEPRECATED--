@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Updates;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stores\Category;
 use App\Models\Stores\Store;
 use App\Models\Updates\ProductList;
 use Carbon\Carbon;
@@ -77,12 +78,23 @@ class ProductListController extends Controller
         if ($vtex_type) {
             $prodList       = new ProductList();
             $apiResponse    = $prodList->updateProductsFrom($store);
+
             // Update the selected store values
             if ($apiResponse) {
                 $store->total_products = $apiResponse['total_prods'];
                 $store->total_categories = count($apiResponse['categories']);
                 $store->last_products_update = Carbon::now();
                 $updateResults = $store->update();
+
+                // Create or update the categories
+                foreach ($apiResponse['categories'] as $category) {
+                    $newCategory = Category::firstOrCreate(['slug' => $category['slug']]);
+                    $newCategory->store                = $store->id;
+                    $newCategory->store_reference_id   = $category['id'];
+                    $newCategory->name                 = $category['name'];
+                    $newCategory->slug                 = $category['slug'];
+                    $newCategory->save();
+                }
             } else {
                 $updateResults  = false;
             }

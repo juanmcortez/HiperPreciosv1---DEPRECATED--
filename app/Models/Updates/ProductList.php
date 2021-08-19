@@ -50,7 +50,8 @@ class ProductList extends Model
 
                 // Category details
                 $category[$idx]['id']     = $parent_categ['id'];
-                $category[$idx]['name']   = strtolower(str_replace(' ', '-', $parent_categ['name']));
+                $category[$idx]['name']   = $parent_categ['name'];
+                $category[$idx]['slug']   = strtolower(str_replace(' ', '-', $parent_categ['name']));
 
                 // Get total products in category
                 $prods_per_categ = Http::retry(3, 500)->get($store_url . "/api/catalog_system/pub/products/search/", [

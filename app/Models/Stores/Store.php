@@ -2,6 +2,7 @@
 
 namespace App\Models\Stores;
 
+use App\Models\Stores\Category;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -111,4 +112,13 @@ class Store extends Model
     }
 
 
+    /**
+     * Categories relationship
+     *
+     * @return void
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'store', 'id')->orderBy('slug');
+    }
 }
