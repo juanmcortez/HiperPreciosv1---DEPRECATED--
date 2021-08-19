@@ -2,13 +2,14 @@
     <div class="w-full p-6 md:px-12 text-cemter">
 
         <h1 class="w-full text-xl font-bold leading-relaxed">
-            {{ __('Stores Management') }}
+            {{ __('Categories Detail') }}
         </h1>
 
         @foreach ($categories as $category)
-        {{ $category->id }}<br />
         {{ $category->name }}<br />
-        {{ $category->storeowner->name }}<br />
+        @foreach ($category->productsQuantity as $categoryUpdate)
+        &nbsp; &nbsp; {{ $categoryUpdate->storeOwner->name }} => {{ $categoryUpdate->product_totals }}<br />
+        @endforeach
         {{ '==================================' }}<br />
         @endforeach
 
