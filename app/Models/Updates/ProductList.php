@@ -49,9 +49,10 @@ class ProductList extends Model
                 $limit = 2500;
 
                 // Category details
-                $category[$idx]['id']     = $parent_categ['id'];
-                $category[$idx]['name']   = $parent_categ['name'];
-                $category[$idx]['slug']   = strtolower(str_replace(' ', '-', $parent_categ['name']));
+                $category[$idx]['id']       = $parent_categ['id'];
+                $category[$idx]['name']     = $parent_categ['name'];
+                $category[$idx]['slug']     = strtolower(str_replace(' ', '-', $parent_categ['name']));
+                $category[$idx]['prods']    = 0;
 
                 // Get total products in category
                 $prods_per_categ = Http::retry(3, 500)->get($store_url . "/api/catalog_system/pub/products/search/", [
@@ -63,6 +64,7 @@ class ProductList extends Model
                     // Total Products + Limit
                     $total_cat_prods = explode('/', $prods_per_categ->header('resources'));
                     $total_cat_prods = $total_cat_prods[1];
+                    $category[$idx]['prods'] = $total_cat_prods;
                     $total_prods += $total_cat_prods;
                     // $limit = ($limit >= $total_cat_prods) ? $total_cat_prods : $limit;
 

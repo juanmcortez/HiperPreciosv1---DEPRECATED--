@@ -2,6 +2,7 @@
 
 namespace App\Models\Stores;
 
+use App\Models\Stores\CategoryUpdates;
 use App\Models\Stores\Store;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,6 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'store',
         'store_reference_id',
         'name',
         'slug',
@@ -31,7 +31,6 @@ class Category extends Model
      */
     protected $hidden = [
         'id',
-        'store',
         'store_reference_id',
         'created_at',
         'deleted_at',
@@ -40,12 +39,12 @@ class Category extends Model
 
 
     /**
-     * Store relationship
+     * Products per category relationship
      *
      * @return void
      */
-    public function storeowner()
+    public function productsQuantity()
     {
-        return $this->belongsTo(Store::class, 'store', 'id')->withDefault();
+        return $this->hasMany(CategoryUpdates::class, 'category', 'id')->orderBy('updated_at');
     }
 }
