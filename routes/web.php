@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboards\StatisticController;
 use App\Http\Controllers\Stores\CategoryController;
 use App\Http\Controllers\Stores\StoreController;
 use App\Http\Controllers\Updates\ProductListController;
@@ -16,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('', [StatisticController::class, 'index'])->name('dashboard');
 
 Route::prefix('stores')->name('store')->group(function () {
     Route::get('', [StoreController::class, 'index']);
